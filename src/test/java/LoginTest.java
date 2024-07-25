@@ -50,6 +50,6 @@ public class LoginTest {
 
     @After
     public void delete() {
-        userClient.delete(accessToken);
+        UserClient.deleteUser(accessToken);
     }
 }

@@ -91,6 +91,6 @@ public class RegistrationUserTest {
     public void delete() {
 
         String accessToken = Token.receivingToken(user);
-        userClient.delete(accessToken);
+        UserClient.deleteUser(accessToken);
     }
 }

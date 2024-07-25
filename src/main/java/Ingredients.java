@@ -13,8 +13,6 @@ public class Ingredients extends MainRequest{
 
     public ArrayList<String> ingredients;
 
-    private static final String INGREDIENTS_PATH = "ingredients";
-
     public Ingredients(ArrayList<String> ingredients) {
         this.ingredients = ingredients;
     }

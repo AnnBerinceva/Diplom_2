@@ -8,7 +8,6 @@ import static org.hamcrest.Matchers.notNullValue;
 
 public class CreateOrderTest {
 
-    private UserClient userClient;
     User user;
     Order order;
     String accessToken;
@@ -16,8 +15,7 @@ public class CreateOrderTest {
     @Before
     public void init() {
 
-        Token token = new Token();
-        userClient = new UserClient();
+        UserClient userClient = new UserClient();
         user = User.validUserCreate();
         order = new Order();
         userClient.createUser(user);
@@ -70,8 +68,10 @@ public class CreateOrderTest {
                 .statusCode(500);
     }
 
-    @After
+   @After
     public void delete() {
-        userClient.delete(accessToken);
+        if (accessToken != null) {
+            UserClient.deleteUser(accessToken);
+        }
     }
 }

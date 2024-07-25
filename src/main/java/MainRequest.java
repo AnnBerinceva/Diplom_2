@@ -13,10 +13,6 @@ public class MainRequest {
         return "/ingredients";
     }
 
-    public static String authUser() {
-        return "/auth/user";
-    }
-
     public static String authRegister() {
         return "/auth/register";
     }

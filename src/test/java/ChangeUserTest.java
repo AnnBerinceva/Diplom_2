@@ -26,7 +26,6 @@ public class ChangeUserTest {
     @Test
     @DisplayName("Изменение данных пользователя c token.")
     public void changeUserTest() {
-
         Response response = userClient.changeUser(newUser, accessToken);
         response.then()
                 .assertThat()
@@ -44,13 +43,15 @@ public class ChangeUserTest {
         Response response = userClient.changeUserWithOutToken(newUser);
         response.then()
                 .assertThat()
-                .statusCode(401)
+               .statusCode(401)
                 .and()
                 .body("success", equalTo(false))
                 .body("message", equalTo("You should be authorised"));
     }
     @After
     public void delete() {
-        userClient.delete(accessToken);
+        if (accessToken != null) {
+            UserClient.deleteUser(accessToken);
+        }
     }
 }

@@ -1,8 +1,6 @@
 import io.qameta.allure.Step;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-
-import static io.restassured.RestAssured.authentication;
 import static io.restassured.RestAssured.given;
 
 /**
@@ -10,6 +8,7 @@ import static io.restassured.RestAssured.given;
  * Шаги: создание, логин, изменение и удаление пользователя.
  */
 public class UserClient extends MainRequest{
+    public static final String USER = "/api/auth/user";
      @Step("Создание уникального пользователя.")
      public Response createUser(User user){
          return given()
@@ -54,17 +53,7 @@ public class UserClient extends MainRequest{
                  .when()
                  .body(user)
                  .and()
-                 .patch(authUser());
-     }
-
-     @Step ("Выход из системы.")
-     public void logoutUser(String token){
-         given()
-                 .spec(baseSpecification())
-                 .when()
-                 .and()
-                 .body(token)
-                 .post("/auth/logout");
+                 .patch("/auth/user");
      }
 
      @Step("Регистрация и логин клиента")
@@ -75,19 +64,16 @@ public class UserClient extends MainRequest{
      }
 
      @Step ("Удаление пользователя.")
-     public static void deleteUser(String token) {
+     public static void deleteUser(String accessToken) {
+         if (accessToken == null) {
+             return;
+         }
          given()
-                 .header("Authorization", "Bearer " + authentication,
-                         "Content-Type",
-                         ContentType.JSON,
-                         "Accept",
-                         ContentType.JSON)
+                 .header("Authorization", accessToken)
                  .spec(baseSpecification())
                  .when()
-                 .delete("auth/user")
-                 .then()
-                 .statusCode(202);
-     }
-     public void delete(String accessToken) {
+                 .delete(USER)
+                 .then();
+
      }
  }
