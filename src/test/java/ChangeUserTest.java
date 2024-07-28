@@ -9,14 +9,12 @@ import static org.hamcrest.Matchers.equalTo;
 public class ChangeUserTest {
 
     UserClient userClient;
-    Token token;
     User user, newUser;
     String accessToken;
 
     @Before
     public void init() {
         userClient = new UserClient();
-        token = new Token();
         user = User.validUserCreate();
         newUser = User.validUserCreate();
         userClient.createLoginUser(user);
